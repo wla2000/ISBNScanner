@@ -1,12 +1,12 @@
 # 📚 ISBN Multi-Tab Scanner (v1.2+)
 
-An automated AutoHotkey (AHK) tool designed for library volunteer groups to streamline ISBN processing across multiple web platforms simultaneously[cite: 2, 4]. This script is particularly useful for organizations that need to compare book values across different buyers or marketplaces quickly.
+An automated AutoHotkey (AHK) tool designed for library volunteer groups to streamline ISBN processing across multiple web platforms simultaneously. This script is particularly useful for organizations that need to compare book values across different buyers or marketplaces quickly.
 
 ## 🚀 Key Features
 * **Multi-Tab Automation:** Automates the browser by tabbing through a customizable number of Chrome pages, pasting the ISBN, and hitting search on each one.
 * **Hardware Friendly:** Optimized to run on older hardware (like retired library HPs or "ancient" laptops) without lagging.
 * **Robust Logging:** Automatically captures every scan with a timestamp to a local log file using dynamic user paths.
-* **Input Flexibility:** Recognizes barcode scanners, manual typing (including the numeric keypad), and pasted ISBNs[cite: 2, 4].
+* **Input Flexibility:** Recognizes barcode scanners, manual typing (including the numeric keypad), and pasted ISBNs.
 * **Single-Instance Force:** Built-in logic to prevent multiple "ghost" windows from running at once.
 
 ## 🛠️ Setup & Execution
@@ -37,10 +37,10 @@ To have the scanner ready for volunteers as soon as Windows boots:
 
 ## 🎮 Controls
 * **F1:** Master Toggle.
-    * **Red Window:** Scanner is OFF[cite: 2, 4].
-    * **Green Window:** Scanner is ACTIVE[cite: 2, 4].
+    * **Red Window:** Scanner is OFF.
+    * **Green Window:** Scanner is ACTIVE.
 * **Exit:** Right-click the **H** icon in the system tray and select **Exit**.
 
 ## 📂 Data & Logging
 The script uses `EnvGet` to find the correct local directory regardless of the Windows username:
-`Documents\AutoHotkey\AutoScanner.log`
+`[user directory]\Documents\AutoHotkey\AutoScanner.log`
