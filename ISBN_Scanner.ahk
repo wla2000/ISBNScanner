@@ -2,15 +2,12 @@
 #SingleInstance Force ; Kills old "ghost" windows automatically
 SetTitleMatchMode 2
 
+; Retrieve command line parameters
+NumChromeTabs := (A_Args.Length >= 1) ? A_Args[1] : 3 ; Default to 3 tabs
+SleepTime := (A_Args.Length >= 2) ? A_Args[2] : 500 ; Default to 500ms
+
 ; --- Global Variables ---
-Global NumChromeTabs := 3
-if (A_Args.length > 0) {
-	NumChromeTabs := A_Args[1] 
-	if (!NumChromeTabs) {
-	  NumChromeTabs := 3
-	}
-}	
-Version := "v1.2" ; Track updates across the HP and Toshibas 
+Version := "v1.4" ; Track updates across the HP and Toshibas 
 UserPath := EnvGet("USERPROFILE") ; Dynamic path for different library PCs 
 Global LogFile := UserPath . "\Documents\AutoHotkey\AutoScanner.log"
 Global Active := False
@@ -34,7 +31,7 @@ MyGui.BackColor := "B22222"
 MyGui.SetFont("s10 w700 cWhite", "Verdana")
 
 ; Display version number in the header for easy identification
-StatusHeader := MyGui.Add("Text", "Center w250 h75", "`nAUTO SCANNER OFF (" Version ")`n" NumChromeTabs " Tabs`nPress F1 to turn on")
+StatusHeader := MyGui.Add("Text", "Center w250 h75", "`nAUTO SCANNER OFF (" Version ")`n " NumChromeTabs " Tabs, Delay: " SleepTime " ms`nPress F1 to turn on")
 
 ; Log Area - increased h to 70 for better spacing
 MyGui.SetFont("s9 w400 cWhite", "Consolas")
@@ -54,11 +51,11 @@ F1:: {
     SoundBeep(Active ? 750 : 500)
     
     if (Active) {
-        StatusHeader.Text := "`nAUTO SCANNER READY(" Version ")`n" NumChromeTabs " Tabs`nPress F1 to turn off"
+        StatusHeader.Text := "`nAUTO SCANNER READY(" Version ")`n" NumChromeTabs " Tabs, Delay: " SleepTime " ms`nPress F1 to turn off"
         MyGui.BackColor := "228B22" ; Forest Green
         ScannerHook.Start()
     } else {
-        StatusHeader.Text := "`nAUTO SCANNER OFF(" Version ")`n" NumChromeTabs " Tabs`nPress F1 to turn on"
+        StatusHeader.Text := "`nAUTO SCANNER OFF(" Version ")`n" NumChromeTabs " Tabs, Delay: " SleepTime " ms`nPress F1 to turn on"
         MyGui.BackColor := "B22222" ; Firebrick Red
         ScannerHook.Stop()
     }
@@ -86,7 +83,7 @@ ProcessScan(ScannedText) {
     }
 	
     ; Clean the input: Keep numbers and the 'X' (for ISBN-10)
-    CleanISBN := RegExReplace(ScannedText, "[^0-9Xb]", "") 
+    CleanISBN := RegExReplace(ScannedText, "[^0-9Xxb]", "") 
     
     if (StrLen(CleanISBN) < 9) {
         ScannerHook.Start()
@@ -108,7 +105,7 @@ ProcessScan(ScannedText) {
     ; The Carousel: Tab to the next 2 tabs, then return to start
     Loop (NumChromeTabs - 1) {
         Send "^{Tab}"
-        Sleep 500 ; Half-second pause for browser rendering
+        Sleep SleepTime ; pause for browser rendering
         Send "^a{Backspace}"
         SendText CleanISBN
         Send "{Enter}"

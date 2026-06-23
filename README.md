@@ -1,4 +1,4 @@
-# 📚 ISBN Multi-Tab Scanner (v1.2+)
+# 📚 ISBN Multi-Tab Scanner (v1.4)
 
 An automated AutoHotkey (AHK) tool designed for library volunteer groups to streamline ISBN processing across multiple web platforms simultaneously. This script is particularly useful for organizations that need to compare book values across different buyers or marketplaces quickly.
 
@@ -23,12 +23,15 @@ If you want to run this as a standalone program:
 3.  This creates an `ISBN_Scanner.exe` which can be shared with other computers.
 
 ### 3. Command Line Parameters (Custom Tabs)
-You can define how many Chrome tabs the "Carousel" should visit by using a Windows Shortcut:
+You can define how many Chrome tabs the "Carousel" should visit and how much time to sleep between tabs 
+by using a Windows Shortcut:
 1.  Right-click your `.exe` (or `.ahk`) file and select **Create shortcut**.
 2.  Right-click the shortcut and select **Properties**.
 3.  In the **Target** box, add a space and your desired tab count at the end:
-    * *Example:* `"C:\Path\To\Scanner.exe" 3`
-4.  The status window will display the active tab count upon launch.
+    * *Example:* `"C:\Path\To\ISBN_Scanner.exe" 3`
+3.  In addition, if you want to specify the sleep time you can do so in the command line:
+    * *Example:* `"C:\Path\To\ISBN_Scanner.exe" 3 500`
+4.  The status window will display the active tab count and sleep time upon launch.
 
 ### 4. How to Make it Auto-Start
 To have the scanner ready for volunteers as soon as Windows boots:
